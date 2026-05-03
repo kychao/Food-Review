@@ -22,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} h-full antialiased`}>
+    <html lang="en" className={`${geist.variable} h-full antialiased`} style={{ colorScheme: "light" }}>
       <body className="flex min-h-full flex-col bg-gray-50 font-sans text-gray-900">
         {/* Nav */}
         <header className="sticky top-0 z-50 border-b border-gray-200 bg-white shadow-sm">
