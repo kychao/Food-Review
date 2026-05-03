@@ -386,6 +386,7 @@ export type ReviewVoteCreateOrConnectWithoutReviewInput = {
 
 export type ReviewVoteCreateManyReviewInputEnvelope = {
   data: Prisma.ReviewVoteCreateManyReviewInput | Prisma.ReviewVoteCreateManyReviewInput[]
+  skipDuplicates?: boolean
 }
 
 export type ReviewVoteUpsertWithWhereUniqueWithoutReviewInput = {
@@ -1165,6 +1166,7 @@ export type ReviewVoteCreateManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * The data used to create many ReviewVotes.
    */
   data: Prisma.ReviewVoteCreateManyInput | Prisma.ReviewVoteCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1183,6 +1185,7 @@ export type ReviewVoteCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exte
    * The data used to create many ReviewVotes.
    */
   data: Prisma.ReviewVoteCreateManyInput | Prisma.ReviewVoteCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

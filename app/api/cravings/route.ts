@@ -38,9 +38,9 @@ export async function POST(req: NextRequest) {
       const communityFlavor =
         reviewsWithFlavor.length > 0
           ? {
-              savorySweetness: avg(reviewsWithFlavor.map((r) => r.savorySweetness)),
-              healthIndulgence: avg(reviewsWithFlavor.map((r) => r.healthIndulgence)),
-              lightHeaviness: avg(reviewsWithFlavor.map((r) => r.lightHeaviness)),
+              savorySweetness: avg(reviewsWithFlavor.map((r) => r.savorySweetness)) ?? undefined,
+              healthIndulgence: avg(reviewsWithFlavor.map((r) => r.healthIndulgence)) ?? undefined,
+              lightHeaviness: avg(reviewsWithFlavor.map((r) => r.lightHeaviness)) ?? undefined,
             }
           : null;
 

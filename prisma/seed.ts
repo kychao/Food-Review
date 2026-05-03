@@ -1,9 +1,7 @@
 import "dotenv/config";
 import { PrismaClient } from "../app/generated/prisma/client";
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
-
-const adapter = new PrismaBetterSqlite3({ url: process.env.DATABASE_URL || "file:./prisma/dev.db" });
-const prisma = new PrismaClient({ adapter });
+import { PrismaPg } from "@prisma/adapter-pg";
+import pg from "pg";
 
 const restaurants = [
   {
@@ -66,6 +64,12 @@ const restaurants = [
 async function main() {
   console.log("Seeding database...");
 
+  const connectionString = process.env.NEON_DATABASE_URL || process.env.DATABASE_URL!;
+  console.log("Connecting to:", connectionString?.substring(0, 30) + "...");
+  const pool = new pg.Pool({ connectionString });
+  const adapter = new PrismaPg(pool);
+  const prisma = new PrismaClient({ adapter });
+
   // Clear existing data
   await prisma.report.deleteMany();
   await prisma.review.deleteMany();
@@ -101,7 +105,4 @@ main()
   .catch((e) => {
     console.error(e);
     process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
   });

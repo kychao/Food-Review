@@ -7,7 +7,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
 }
 
 model Restaurant {
@@ -33,30 +33,28 @@ model MenuItem {
 }
 
 model Review {
-  id         String       @id @default(cuid())
-  rating     Int
-  comment    String?
-  imageUrl   String?      // path to uploaded image, e.g. /uploads/abc123.jpg
-  likes      Int          @default(0)
-  dislikes   Int          @default(0)
-  // Flavor sliders: 0 = fully left label, 100 = fully right label, null = not answered
-  savorySweetness   Int?  // 0 = savory, 100 = sweet
-  healthIndulgence  Int?  // 0 = healthy, 100 = indulgent
-  lightHeaviness    Int?  // 0 = light, 100 = heavy
-  createdAt  DateTime     @default(now())
-  menuItemId String
-  menuItem   MenuItem     @relation(fields: [menuItemId], references: [id])
-  reports    Report[]
-  votes      ReviewVote[]
+  id                String       @id @default(cuid())
+  rating            Int
+  comment           String?
+  imageUrl          String?
+  likes             Int          @default(0)
+  dislikes          Int          @default(0)
+  savorySweetness   Int?
+  healthIndulgence  Int?
+  lightHeaviness    Int?
+  createdAt         DateTime     @default(now())
+  menuItemId        String
+  menuItem          MenuItem     @relation(fields: [menuItemId], references: [id])
+  reports           Report[]
+  votes             ReviewVote[]
 }
 
-// Tracks per-session votes to prevent double voting
 model ReviewVote {
   id        String   @id @default(cuid())
   reviewId  String
   review    Review   @relation(fields: [reviewId], references: [id])
-  sessionId String   // anonymous session identifier stored in cookie
-  vote      String   // "like" or "dislike"
+  sessionId String
+  vote      String
   createdAt DateTime @default(now())
 
   @@unique([reviewId, sessionId])

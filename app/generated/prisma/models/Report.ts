@@ -540,6 +540,7 @@ export type ReportCreateOrConnectWithoutMenuItemInput = {
 
 export type ReportCreateManyMenuItemInputEnvelope = {
   data: Prisma.ReportCreateManyMenuItemInput | Prisma.ReportCreateManyMenuItemInput[]
+  skipDuplicates?: boolean
 }
 
 export type ReportUpsertWithWhereUniqueWithoutMenuItemInput = {
@@ -599,6 +600,7 @@ export type ReportCreateOrConnectWithoutReviewInput = {
 
 export type ReportCreateManyReviewInputEnvelope = {
   data: Prisma.ReportCreateManyReviewInput | Prisma.ReportCreateManyReviewInput[]
+  skipDuplicates?: boolean
 }
 
 export type ReportUpsertWithWhereUniqueWithoutReviewInput = {
@@ -1445,6 +1447,7 @@ export type ReportCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * The data used to create many Reports.
    */
   data: Prisma.ReportCreateManyInput | Prisma.ReportCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1463,6 +1466,7 @@ export type ReportCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    * The data used to create many Reports.
    */
   data: Prisma.ReportCreateManyInput | Prisma.ReportCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */
