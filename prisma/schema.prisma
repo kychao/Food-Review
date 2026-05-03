@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Restaurant {
+  id          String     @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime   @default(now())
+  menuItems   MenuItem[]
+}
+
+model MenuItem {
+  id              String     @id @default(cuid())
+  name            String
+  description     String?
+  restaurantId    String
+  restaurant      Restaurant @relation(fields: [restaurantId], references: [id])
+  isUserSubmitted Boolean    @default(false)
+  createdAt       DateTime   @default(now())
+  reviews         Review[]
+  reports         Report[]
+
+  @@unique([name, restaurantId])
+}
+
+model Review {
+  id         String       @id @default(cuid())
+  rating     Int
+  comment    String?
+  imageUrl   String?      // path to uploaded image, e.g. /uploads/abc123.jpg
+  likes      Int          @default(0)
+  dislikes   Int          @default(0)
+  // Flavor sliders: 0 = fully left label, 100 = fully right label, null = not answered
+  savorySweetness   Int?  // 0 = savory, 100 = sweet
+  healthIndulgence  Int?  // 0 = healthy, 100 = indulgent
+  lightHeaviness    Int?  // 0 = light, 100 = heavy
+  createdAt  DateTime     @default(now())
+  menuItemId String
+  menuItem   MenuItem     @relation(fields: [menuItemId], references: [id])
+  reports    Report[]
+  votes      ReviewVote[]
+}
+
+// Tracks per-session votes to prevent double voting
+model ReviewVote {
+  id        String   @id @default(cuid())
+  reviewId  String
+  review    Review   @relation(fields: [reviewId], references: [id])
+  sessionId String   // anonymous session identifier stored in cookie
+  vote      String   // "like" or "dislike"
+  createdAt DateTime @default(now())
+
+  @@unique([reviewId, sessionId])
+}
+
+model Report {
+  id           String    @id @default(cuid())
+  reason       String
+  createdAt    DateTime  @default(now())
+  targetType   String
+  reviewId     String?
+  review       Review?   @relation(fields: [reviewId], references: [id])
+  menuItemId   String?
+  menuItem     MenuItem? @relation(fields: [menuItemId], references: [id])
+  emailSent    Boolean   @default(false)
+  emailRetries Int       @default(0)
+}
