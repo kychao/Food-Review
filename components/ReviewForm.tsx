@@ -3,7 +3,6 @@
 import { useState, useRef } from "react";
 import StarRating from "@/components/StarRating";
 import FlavorSlider from "@/components/FlavorSlider";
-import Image from "next/image";
 
 interface Review {
   id: string;
@@ -182,11 +181,10 @@ export default function ReviewForm({ itemId, onReviewAdded }: Props) {
         </label>
         {imagePreview ? (
           <div className="relative w-full">
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={imagePreview}
               alt="Preview"
-              width={400}
-              height={200}
               className="w-full h-48 object-cover rounded-lg border border-gray-200"
             />
             <button

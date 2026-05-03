@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import StarRating from "@/components/StarRating";
 
 interface Props {
@@ -28,11 +27,10 @@ export default function MenuItemCard({
       {/* Top image or placeholder */}
       {topImage ? (
         <div className="h-36 w-full overflow-hidden bg-gray-100">
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src={topImage}
             alt={`Top photo for ${name}`}
-            width={400}
-            height={144}
             className="h-full w-full object-cover transition-transform group-hover:scale-105"
           />
         </div>

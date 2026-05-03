@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
+import { useState, useEffect, useRef } from "react";
 import StarRating from "@/components/StarRating";
 
 interface Props {
@@ -36,6 +35,19 @@ export default function ReviewCard({
   const [userVote, setUserVote] = useState<"like" | "dislike" | null>(null);
   const [voting, setVoting] = useState(false);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+
+  // Close lightbox on Escape key
+  useEffect(() => {
+    if (!lightboxOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightboxOpen(false);
+    };
+    document.addEventListener("keydown", handleKey);
+    // Move focus to close button when lightbox opens
+    closeBtnRef.current?.focus();
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [lightboxOpen]);
 
   async function handleVote(vote: "like" | "dislike") {
     if (voting) return;
@@ -79,11 +91,10 @@ export default function ReviewCard({
             className="block w-full focus:outline-none focus:ring-2 focus:ring-green-500/40"
             aria-label="View full image"
           >
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={imageUrl}
               alt="Review photo"
-              width={600}
-              height={300}
               className="w-full h-48 object-cover cursor-zoom-in hover:opacity-90 transition-opacity"
             />
           </button>
@@ -100,33 +111,34 @@ export default function ReviewCard({
           onClick={() => setLightboxOpen(false)}
         >
           <button
-            className="absolute top-4 right-4 text-white text-2xl leading-none hover:text-gray-300 focus:outline-none"
+            ref={closeBtnRef}
+            className="absolute top-4 right-4 text-white text-2xl leading-none hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-white/60 rounded"
             onClick={() => setLightboxOpen(false)}
             aria-label="Close image"
           >
             ✕
           </button>
           <div onClick={(e) => e.stopPropagation()}>
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src={imageUrl}
               alt="Review photo full size"
-              width={600}
-              height={450}
-              className="rounded-xl object-contain max-w-full max-h-[75vh] shadow-2xl"
-              style={{ width: "auto", height: "auto", maxWidth: "600px", maxHeight: "75vh" }}
+              className="rounded-xl object-contain shadow-2xl"
+              style={{ maxWidth: "600px", maxHeight: "75vh" }}
             />
           </div>
         </div>
       )}
 
       {/* Like / dislike */}
-      <div className="mt-3 flex items-center gap-3">
+      <div className="mt-3 flex items-center gap-3" aria-label="Review votes">
         <button
           onClick={() => handleVote("like")}
           disabled={voting}
           aria-label={`Like this review. ${likes} likes.`}
           aria-pressed={userVote === "like"}
-          className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-green-500/40 ${
+          aria-busy={voting}
+          className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-green-500/40 disabled:opacity-50 disabled:cursor-not-allowed ${
             userVote === "like"
               ? "bg-green-100 text-green-700"
               : "bg-gray-100 text-gray-600 hover:bg-green-50 hover:text-green-700"
