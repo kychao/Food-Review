@@ -44,4 +44,5 @@ prisma/dev.db-journal
 *.tsbuildinfo
 next-env.d.ts
 
-/app/generated/prisma
+# Prisma generated client - regenerated via postinstall
+# app/generated/prisma

@@ -97,11 +97,16 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col gap-10">
       {/* Hero */}
-      <section className="text-center">
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Cal Poly Dining Reviews
-        </h1>
-        <p className="mt-2 text-base text-gray-500">
+      <section className="flex flex-col items-center text-center gap-4">
+        <Image
+          src="/slo_bites_logo.png"
+          alt="SLO Bites — Cal Poly Campus Dining Reviews"
+          width={560}
+          height={560}
+          priority
+          className="drop-shadow-sm"
+        />
+        <p className="text-base text-gray-500 max-w-md">
           Find out what&apos;s good before you spend your dining dollars.
         </p>
       </section>

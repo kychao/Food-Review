@@ -35,6 +35,7 @@ export default function ReviewCard({
   const [dislikes, setDislikes] = useState(initialDislikes);
   const [userVote, setUserVote] = useState<"like" | "dislike" | null>(null);
   const [voting, setVoting] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   async function handleVote(vote: "like" | "dislike") {
     if (voting) return;
@@ -72,13 +73,49 @@ export default function ReviewCard({
 
       {imageUrl && (
         <div className="mt-3 overflow-hidden rounded-lg">
-          <Image
-            src={imageUrl}
-            alt="Review photo"
-            width={600}
-            height={300}
-            className="w-full h-48 object-cover"
-          />
+          <button
+            type="button"
+            onClick={() => setLightboxOpen(true)}
+            className="block w-full focus:outline-none focus:ring-2 focus:ring-green-500/40"
+            aria-label="View full image"
+          >
+            <Image
+              src={imageUrl}
+              alt="Review photo"
+              width={600}
+              height={300}
+              className="w-full h-48 object-cover cursor-zoom-in hover:opacity-90 transition-opacity"
+            />
+          </button>
+        </div>
+      )}
+
+      {/* Lightbox */}
+      {lightboxOpen && imageUrl && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-8"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Full size image"
+          onClick={() => setLightboxOpen(false)}
+        >
+          <button
+            className="absolute top-4 right-4 text-white text-2xl leading-none hover:text-gray-300 focus:outline-none"
+            onClick={() => setLightboxOpen(false)}
+            aria-label="Close image"
+          >
+            ✕
+          </button>
+          <div onClick={(e) => e.stopPropagation()}>
+            <Image
+              src={imageUrl}
+              alt="Review photo full size"
+              width={600}
+              height={450}
+              className="rounded-xl object-contain max-w-full max-h-[75vh] shadow-2xl"
+              style={{ width: "auto", height: "auto", maxWidth: "600px", maxHeight: "75vh" }}
+            />
+          </div>
         </div>
       )}
 

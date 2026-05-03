@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { Suspense } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import SearchBar from "@/components/SearchBar";
 import "./globals.css";
 
@@ -11,7 +12,7 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Cal Poly Dining Reviews",
+  title: "SLO Bites — Cal Poly Campus Dining Reviews",
   description: "Browse and review menu items at Cal Poly dining restaurants.",
 };
 
@@ -28,10 +29,16 @@ export default function RootLayout({
           <div className="mx-auto flex max-w-5xl items-center gap-4 px-4 py-3 sm:px-6">
             <Link
               href="/"
-              className="shrink-0 text-lg font-bold text-green-700 hover:text-green-800"
-              aria-label="Cal Poly Dining Reviews home"
+              className="shrink-0 flex items-center hover:opacity-80 transition-opacity"
+              aria-label="SLO Bites home"
             >
-              🌿 CP Dining
+              <Image
+                src="/slo_bites_logo.png"
+                alt="SLO Bites logo"
+                width={180}
+                height={72}
+                className="object-contain"
+              />
             </Link>
             <div className="flex flex-1 justify-center">
               <Suspense fallback={null}>
@@ -59,7 +66,7 @@ export default function RootLayout({
         </main>
 
         <footer className="border-t border-gray-200 bg-white py-4 text-center text-xs text-gray-400">
-          Cal Poly Dining Reviews · Built at KiroHacks 2025
+          SLO Bites · Cal Poly Campus Dining Reviews · Built at KiroHacks 2025
         </footer>
       </body>
     </html>
