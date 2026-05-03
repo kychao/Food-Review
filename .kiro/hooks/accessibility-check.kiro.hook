@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Accessibility Check",
+  "description": "After editing a React component, automatically checks for missing accessibility attributes like aria-labels, roles, and keyboard navigation to ensure WCAG 2.1 AA compliance",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "components/**/*.tsx"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A component file was just edited. Check if it has proper accessibility attributes: aria-labels on interactive elements, proper role attributes, keyboard navigation support, and color contrast considerations. If anything is missing, suggest the specific fixes needed."
+  }
+}
