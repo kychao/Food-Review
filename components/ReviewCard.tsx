@@ -151,7 +151,8 @@ export default function ReviewCard({
           disabled={voting}
           aria-label={`Dislike this review. ${dislikes} dislikes.`}
           aria-pressed={userVote === "dislike"}
-          className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/40 ${
+          aria-busy={voting}
+          className={`flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-red-500/40 disabled:opacity-50 disabled:cursor-not-allowed ${
             userVote === "dislike"
               ? "bg-red-100 text-red-700"
               : "bg-gray-100 text-gray-600 hover:bg-red-50 hover:text-red-700"

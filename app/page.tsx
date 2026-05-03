@@ -187,11 +187,10 @@ export default async function HomePage() {
                   >
                     {review.imageUrl ? (
                       <div className="h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-gray-100">
-                        <Image
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
                           src={review.imageUrl}
                           alt={`Photo for ${review.menuItem.name}`}
-                          width={64}
-                          height={64}
                           className="h-full w-full object-cover"
                         />
                       </div>

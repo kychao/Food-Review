@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import FlavorSlider from "@/components/FlavorSlider";
 import StarRating from "@/components/StarRating";
@@ -183,8 +182,9 @@ export default function CravingsPage() {
         <div className={`rounded-2xl border border-gray-200 bg-white shadow-lg overflow-hidden transition-all duration-300 ${animClass}`}>
           {currentItem.topImage ? (
             <div className="h-52 w-full overflow-hidden bg-gray-100">
-              <Image src={currentItem.topImage} alt={currentItem.name}
-                width={400} height={208} className="h-full w-full object-cover" />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={currentItem.topImage} alt={currentItem.name}
+                className="h-full w-full object-cover" />
             </div>
           ) : (
             <div className="flex h-52 items-center justify-center bg-gradient-to-br from-green-50 to-emerald-100 text-6xl">
@@ -327,7 +327,8 @@ function ResultCard({ item, tag, tagColor }: {
         className="flex gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md focus:outline-none focus:ring-2 focus:ring-green-500/40">
         {item.topImage ? (
           <div className="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gray-100">
-            <Image src={item.topImage} alt={item.name} width={80} height={80}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={item.topImage} alt={item.name}
               className="h-full w-full object-cover" />
           </div>
         ) : (

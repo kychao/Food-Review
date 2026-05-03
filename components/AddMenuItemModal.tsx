@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import StarRating from "@/components/StarRating";
 import FlavorSlider from "@/components/FlavorSlider";
 
@@ -245,11 +244,10 @@ export default function AddMenuItemModal({ defaultRestaurantId, onClose }: Props
             </label>
             {imagePreview ? (
               <div className="relative w-full">
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src={imagePreview}
                   alt="Preview"
-                  width={400}
-                  height={160}
                   className="w-full h-40 object-cover rounded-lg border border-gray-200"
                 />
                 <button
