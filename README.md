@@ -1,4 +1,4 @@
-# SLO Bites 🌿
+# SLO Bites 🦥
 
 **Cal Poly Campus Dining Reviews** — Built at KiroHacks 2025
 
